@@ -1,0 +1,24 @@
+name: Docker Image Publish to DockerHub
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    - name: Listing files
+      run: ls -ll
+    - name: Build the Docker image
+      run: |
+        docker build . -t ${{ vars.DOCKER_NAME }}/my-pipeline-test-image
+        docker image ls
+
+    - name: Pushing Image to DockerHub
+      run: |
+        echo "${{ secrets.DOCKER_PAT }}" | docker login -u ${{ vars.DOCKER_NAME }} --password-stdin
+        docker push ${{ vars.DOCKER_NAME }}/my-pipeline-test-image
+        

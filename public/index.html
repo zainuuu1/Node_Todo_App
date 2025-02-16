@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MY TODO LIST</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #todo-list {
+      margin-top: 15px;
+    }
+    .todo-item {
+      margin: 5px 0;
+      padding: 8px;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>MY TODO LIST</h1>
+
+  <div>
+    <input type="text" id="taskInput" placeholder="Enter your todo here" />
+    <button onclick="addTodo()">Add</button>
+  </div>
+
+  <div id="todo-list"></div>
+
+  <script>
+    let todos = [];
+
+    // Fetch and display the todos when the page loads
+    window.onload = async () => {
+      await fetchTodos();
+    };
+
+    // Function to fetch all todos from the server
+    async function fetchTodos() {
+      const response = await fetch('/todos');
+      todos = await response.json();
+      displayTodos();
+    }
+
+    // Function to display todos on the page
+    function displayTodos() {
+      const todoListDiv = document.getElementById('todo-list');
+      todoListDiv.innerHTML = '';  // Clear the existing list
+
+      todos.forEach(todo => {
+        const todoDiv = document.createElement('div');
+        todoDiv.classList.add('todo-item');
+        todoDiv.innerHTML = `${todo.id}. ${todo.task}`;
+        todoListDiv.appendChild(todoDiv);
+      });
+    }
+
+    // Function to add a new todo
+    async function addTodo() {
+      const taskInput = document.getElementById('taskInput');
+      const task = taskInput.value.trim();
+
+      if (task) {
+        const response = await fetch('/todos', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ task: task }),
+        });
+
+        const newTodo = await response.json();
+        todos.push(newTodo);  // Add the new todo to the list
+        displayTodos();  // Update the displayed list
+        taskInput.value = '';  // Clear the input field
+      }
+    }
+  </script>
+
+</body>
+</html>

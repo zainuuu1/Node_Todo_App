@@ -14,11 +14,11 @@ jobs:
       run: ls -ll
     - name: Build the Docker image
       run: |
-        docker build . -t ${{ zainuu }}/my-pipelinee-test-image
+        docker build . -t ${{ VARS_DOCKERUSERNAME }}/my-pipelinee-test-image
         docker image ls
 
     - name: Pushing Image to DockerHub
       run: |
-        echo "${{ dckr_pat_KdtDw_XT5APSD7liAhs5UwRJpcw }}" | docker login -u ${{ zainuu }} --password-stdin
-        docker push ${{ zainuu }}/my-pipelinee-test-image
+        echo "${{ SECRETS_DOCKER_PAT }}" | docker login -u ${{ VARS_DOCKERUSERNAME }} --password-stdin
+        docker push ${{ VARS_DOCKERUSERNAME }}/my-pipelinee-test-image
         

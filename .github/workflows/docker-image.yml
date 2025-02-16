@@ -19,6 +19,6 @@ jobs:
 
     - name: Pushing Image to DockerHub
       run: |
-        echo "${{ serets.DOCKER_PAT }}" | docker login -u ${{ VARS_DOCKERUSERNAME }} --password-stdin
+        echo "${{ secrets.DOCKER_PAT }}" | docker login -u ${{ VARS_DOCKERUSERNAME }} --password-stdin
         docker push ${{ vars.DOCKER_USERNAME }}/my-pipelinee-test-image
         

@@ -28,4 +28,4 @@ jobs:
         
     - name: docker container run
       run: |
-        docker container run -d my-pipelinee-test-image1 
+        docker container run -d zainuu/my-pipelinee-test-image1 

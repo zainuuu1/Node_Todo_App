@@ -22,10 +22,23 @@ jobs:
         echo "${{ secrets.DOCKER_PAT }}" | docker login -u ${{ vars.DOCKER_USERNAME }} --password-stdin
         docker push ${{ vars.DOCKER_USERNAME }}/my-pipelinee-test-image1
         
-    - name: pulling image
-      run: |
-        docker pull zainuu/my-pipelinee-test-image1
         
     - name: docker container run
       run: |
-        docker container run -d zainuu/my-pipelinee-test-image1 /bin/bash
+        docker container run -d -p 3000:3000 ${{ vars.DOCKER_USERNAME }}/my-pipelinee-test-image
+        docker container ls
+
+    - name: Testing Container
+      run: |
+        sleep 10
+        echo "Testing the Container"
+        curl http://localhost:3000 >> response.txt
+        echo "==========================="
+        grep "MY TODO LIST" response.txt
+
+    - name: Pushing Image to DockerHub
+      run: |
+        echo "${{ secrets.DOCKER_PAT }}" | docker login -u ${{ vars.DOCKER_USERNAME }} --password-stdin
+        docker push ${{ vars.DOCKER_USERNAME }}/my-pipelinee-test-image   
+
+        

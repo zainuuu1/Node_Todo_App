@@ -24,4 +24,4 @@ jobs:
         
     - name: docker container run
       run: |
-         docker container run -d my-piplinee-test-image 
+         docker container run -d my-pipelinee-test-image 

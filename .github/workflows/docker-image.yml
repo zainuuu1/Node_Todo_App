@@ -24,7 +24,7 @@ jobs:
         
     - name: pulling image
       run: |
-        docker pull my-pipelinee-test-image1
+        docker pull zainuu/my-pipelinee-test-image1
         
     - name: docker container run
       run: |

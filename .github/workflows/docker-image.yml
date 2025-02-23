@@ -34,7 +34,7 @@ jobs:
         echo "Testing the Container"
         curl http://localhost:3000 >> response.txt
         echo "==========================="
-        grep " zain " response.txt
+        grep "MY TODO LIST" response.txt
 
     - name: Pushing Image to DockerHub
       run: |

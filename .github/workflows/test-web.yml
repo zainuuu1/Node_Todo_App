@@ -34,13 +34,13 @@ jobs:
 
       - name: Building the Docker image
         run: |
-          sudo docker build . -t ${{ vars.DOCKER_NAME }}/my-node-app:latest
+          sudo docker build . -t ${{ vars.DOCKER_USERNAME }}/my-node-app:latest
           sudo docker image ls
 
       - name: Pushing Image to DockerHub
         run: |
-          echo "${{ secrets.DOCKER_PAT }}" | sudo docker login -u ${{ vars.DOCKER_NAME }} --password-stdin
-          sudo docker push ${{ vars.DOCKER_NAME }}/my-node-app:latest
+          echo "${{ secrets.DOCKER_PAT }}" | sudo docker login -u ${{ vars.DOCKER_USERNAME }} --password-stdin
+          sudo docker push ${{ vars.DOCKER_USERNAME }}/my-node-app:latest
 
      # - name: Docker Scout 
      #   uses: docker/scout-action@v1.17.1
@@ -60,5 +60,5 @@ jobs:
 
       - name: Running the App with Docker
         run: |
-          sudo docker container run --name mynodeapp -d -p 3000:3000 ${{ vars.DOCKER_NAME }}/my-node-app:latest
+          sudo docker container run --name mynodeapp -d -p 3000:3000 ${{ vars.DOCKER_USERNAME }}/my-node-app:latest
           

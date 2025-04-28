@@ -52,11 +52,11 @@ jobs:
      #       only-severities: critical, high
             #NOTE: It is scanning a DockerHub public repository image, for private images, you need to setup registry. 
 
-    #  - name: Removing Docker
-    #    run: |
-    #      sudo docker container stop mynodeapp
-    #      sudo docker container rm mynodeapp   
-    #    continue-on-error: true
+      - name: Removing Docker
+        run: |
+          sudo docker container stop mynodeapp
+          sudo docker container rm mynodeapp   
+        continue-on-error: true
 
       - name: Running the App with Docker
         run: |

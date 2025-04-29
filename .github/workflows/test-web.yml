@@ -15,7 +15,7 @@ jobs:
      #     run: npm install
 
      #   - name: Run the app
-     #     run: pm2 start npm --name "my-node-app" -- start -- -p 3000
+     #     run: pm2 start npm --name "my-node-app" -- start -- -p 4000
 
       - name: Generate Trivy Vulnerability Report
         uses: aquasecurity/trivy-action@master
@@ -60,5 +60,5 @@ jobs:
 
       - name: Running the App with Docker
         run: |
-          sudo docker container run --name mynodeapp -d -p 3000:3000 ${{ vars.DOCKER_USERNAME }}/test-node:latest
+          sudo docker container run --name mynodeapp -d -p 4000:4000 ${{ vars.DOCKER_USERNAME }}/test-node:latest
           

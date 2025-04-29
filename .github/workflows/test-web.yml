@@ -60,5 +60,5 @@ jobs:
 
       - name: Running the App with Docker
         run: |
-          sudo docker container run --name mynodeapp -d -p 4000:4000 ${{ vars.DOCKER_USERNAME }}/test-node:latest
+          sudo docker container run --name mynodeapp -d -p 4000:3000 ${{ vars.DOCKER_USERNAME }}/test-node:latest
           

@@ -9,8 +9,33 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Installing Dependencies
-        run: npm install
+    #  - name: Installing Dependencies
+    #    run: npm install
 
-      - name: Run the app
-        run: pm2 start npm --name "my-node-app" -- start -- -p 3000
+    #  - name: Run the app
+    #    run: pm2 start npm --name "my-node-app" -- start -- -p 3000
+
+
+
+      - name: Building the Docker image
+        run: |
+          sudo docker build . -t ${{ vars.DOCKER_USERNAME }}/myy-node-app:latest
+          sudo docker image ls
+
+      - name: Pushing Image to DockerHub
+        run: |
+          echo "${{ secrets.DOCKER_PAT }}" | sudo docker login -u ${{ vars.DOCKER_USERNAME }} --password-stdin
+          sudo docker push ${{ vars.DOCKER_USERNAME }}/myy-node-app:latest
+
+
+          
+      - name: Removing Docker
+        run: |
+          sudo docker container stop mynodeapp
+          sudo docker container rm mynodeapp   
+        continue-on-error: true
+
+      - name: Running the App with Docker
+        run: |
+          sudo docker container run --name mynodeapp -d -p 3000:3000 ${{ vars.DOCKER_USERNAME }}/myy-node-app:latest
+

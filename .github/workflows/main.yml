@@ -14,5 +14,5 @@ jobs:
         run: npm install
 
       - name: Run the app
-        run: pm2 start npm --name "my-node-app" -- start -- -p 4000
+        run: pm2 start npm --name "my-node-app" -- start -- -p 3000
 

@@ -35,5 +35,5 @@ jobs:
 
       - name: Running the App with Docker
         run: |
-          sudo docker container run --name mynodeapp -d -p 3000:3000 ${{ vars.DOCKER_NAME }}/my-nodee-app:latest
+          sudo docker container run --name mynodeapp -d -p 3000:3000 ${{ vars.DOCKER_USERNAME }}/my-nodee-app:latest
 

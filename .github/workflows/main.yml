@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
 
-jobs:
+jobs: 
   Setup-and-deploy:
     runs-on: self-hosted
     steps:

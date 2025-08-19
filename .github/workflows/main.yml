@@ -28,15 +28,7 @@ jobs:
           echo "${{ secrets.DOCKER_PAT }}" | sudo docker login -u ${{ vars.DOCKER_USERNAME }} --password-stdin
           sudo docker push ${{ vars.DOCKER_USERNAME }}/my-node-app:latest
 
-      - name: Docker Scout 
-        uses: docker/scout-action@v1.17.1
-        with:
-            dockerhub-user: ${{ vars.DOCKER_USERNAME }}
-            dockerhub-password: ${{ secrets.DOCKER_PAT }}
-            command: quickview,cves
-            image: ${{ vars.DOCKER_USERNAME }}/my-node-app:latest
-            only-severities: critical, high
-            #NOTE: It is scanning a DockerHub public repository image, for private images, you need to setup registry. 
+  
 
       - name: Removing Docker
         run: |
